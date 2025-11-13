@@ -59,4 +59,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation("androidx.compose.material:material-icons-extended-android:1.6.7")
+    implementation("nl.dionsegijn:konfetti-compose:2.0.2")
+
 }

@@ -1,0 +1,48 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+
+    <!-- Face circle -->
+    <path
+        android:fillColor="#FFCC4D"
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:pathData="M32,2
+                          A30,30 0 1,1 31.99,2"/>
+
+    <!-- Left eye -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M22,18
+                          A6,6 0 1,1 21.99,18"/>
+
+    <!-- Right eye -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M42,18
+                          A6,6 0 1,1 41.99,18"/>
+
+    <!-- Left eyebrow -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M17,14 Q22,10 27,14"/>
+
+    <!-- Right eyebrow -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M37,14 Q42,10 47,14"/>
+
+    <!-- Sad mouth -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="3"
+        android:fillColor="@android:color/transparent"
+        android:strokeLineCap="round"
+        android:pathData="M16,46 Q32,30 48,46"/>
+</vector>
