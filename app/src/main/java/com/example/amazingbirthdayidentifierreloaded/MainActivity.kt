@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Column {
                     when (state.value.isBirthDay) {
-                        Type.START -> {
+                        Type.ASK -> {
                             Text(text = "Enter your birth date")
                         }
 
