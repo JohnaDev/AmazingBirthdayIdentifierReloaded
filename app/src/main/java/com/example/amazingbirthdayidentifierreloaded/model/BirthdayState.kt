@@ -1,5 +1,4 @@
-package com.example.amazingbirthdayidentifierreloaded
-
+package com.example.amazingbirthdayidentifierreloaded.model
 
 /**
  * Represents the current state of the birthday check screen.

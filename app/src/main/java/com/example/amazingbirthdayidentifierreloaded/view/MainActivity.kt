@@ -1,4 +1,4 @@
-package com.example.amazingbirthdayidentifierreloaded
+package com.example.amazingbirthdayidentifierreloaded.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,6 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.amazingbirthdayidentifierreloaded.model.Type
+import com.example.amazingbirthdayidentifierreloaded.viewmodel.BirthdayViewModel
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -34,7 +36,10 @@ class MainActivity : ComponentActivity() {
             var showDatePicker by remember { mutableStateOf(false) }
             val datePickerState = rememberDatePickerState()
 
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 Column {
                     when (state.value.isBirthDay) {
                         Type.ASK -> {
@@ -59,7 +64,7 @@ class MainActivity : ComponentActivity() {
 
             if (showDatePicker) {
                 @Suppress("AssignedValueIsNeverRead")
-                DatePickerDialog(
+                (DatePickerDialog(
                     onDismissRequest = {
                         showDatePicker = false
                     },
@@ -83,7 +88,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) {
                     DatePicker(state = datePickerState)
-                }
+                })
             }
         }
     }

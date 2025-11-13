@@ -1,4 +1,4 @@
-package com.example.amazingbirthdayidentifierreloaded
+package com.example.amazingbirthdayidentifierreloaded.model
 
 /**
  * Represents the distinct states of the birthday verification UI.
