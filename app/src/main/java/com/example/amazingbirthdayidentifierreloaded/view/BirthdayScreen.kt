@@ -154,7 +154,7 @@ private fun SharedBirthdayContent(isLandscape: Boolean) {
 /**
  * Previews for visualizing the BirthdayScreen in both portrait and landscape.
  */
-@Preview(name = "Portrait Preview", showBackground = true, widthDp = 360, heightDp = 720)
+@Preview(name = "Portrait Preview", showBackground = true, widthDp = 360, heightDp = 720, showSystemUi = true)
 @Composable
 fun BirthdayScreenPortraitPreview() {
     AmazingBirthdayIdentifierReloadedTheme {
