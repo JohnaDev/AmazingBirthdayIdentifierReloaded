@@ -69,4 +69,7 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended.android)
     implementation(libs.konfetti.compose)
 
+    // coroutine test
+    testImplementation(libs.kotlinx.coroutines.test)
+
 }
