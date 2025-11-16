@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.amazingbirthdayidentifierreloaded.model.Type
 import com.example.amazingbirthdayidentifierreloaded.ui.theme.AmazingBirthdayIdentifierReloadedTheme
@@ -161,7 +162,9 @@ class MainActivity : ComponentActivity() {
     private fun getAppVersion(context: Context): String {
         return try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            packageInfo.versionName ?: ""
+            val versionName = packageInfo.versionName
+            val versionCode = PackageInfoCompat.getLongVersionCode(packageInfo)
+            "$versionName ($versionCode)"
         } catch (_: Exception) {
             ""
         }
