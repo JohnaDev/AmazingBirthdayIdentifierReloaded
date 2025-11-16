@@ -45,7 +45,6 @@ class MainActivity : ComponentActivity() {
                 val datePickerState = rememberDatePickerState()
 
                 Scaffold(
-                    // 2. Place the persistent button in the bottomBar slot
                     bottomBar = {
                         Box(
                             modifier = Modifier
@@ -56,7 +55,6 @@ class MainActivity : ComponentActivity() {
                             Button(
                                 modifier = Modifier.padding(30.dp),
                                 onClick = { showDatePicker = true }) {
-                                // 3. Change the button text based on the state
                                 val buttonText = if (state.value.isBirthDay == Type.ASK) {
                                     "Select a Date"
                                 } else {
@@ -70,11 +68,10 @@ class MainActivity : ComponentActivity() {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(innerPadding), // Apply the padding here
+                            .padding(innerPadding),
                         contentAlignment = Alignment.Center
                     ) {
                         when (state.value.isBirthDay) {
-                            // 5. AskBirthdayScreen no longer needs its own button
                             Type.ASK -> AskBirthdayScreen()
                             Type.TRUE -> BirthdayScreen()
                             Type.FALSE -> NotYourBirthdayScreen()
@@ -83,8 +80,11 @@ class MainActivity : ComponentActivity() {
                 }
 
                 if (showDatePicker) {
+                    @Suppress("AssignedValueIsNeverRead")
                     DatePickerDialog(
-                        onDismissRequest = { showDatePicker = false },
+                        onDismissRequest = {
+                            showDatePicker = false
+                        },
                         confirmButton = {
                             TextButton(
                                 onClick = {
