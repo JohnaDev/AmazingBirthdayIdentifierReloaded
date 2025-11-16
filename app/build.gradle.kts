@@ -14,8 +14,8 @@ android {
         applicationId = "com.lazyjuan.amazingbirthdayidentifierreloaded"
         minSdk = 26
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.0"
+        versionCode = GitInfo.getGitCommitCount()
+        versionName = GitInfo.getVersionName()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,6 +38,13 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+
+    applicationVariants.all {
+        outputs.all {
+            val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            output.outputFileName = "${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+        }
     }
 }
 
