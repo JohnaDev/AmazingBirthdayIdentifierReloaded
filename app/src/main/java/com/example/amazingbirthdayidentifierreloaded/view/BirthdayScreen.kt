@@ -1,5 +1,6 @@
 package com.example.amazingbirthdayidentifierreloaded.view
 
+import android.media.MediaPlayer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,16 +12,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Cake
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -40,6 +40,17 @@ import java.util.concurrent.TimeUnit
  */
 @Composable
 fun BirthdayScreen() {
+    val context = LocalContext.current
+    val mediaPlayer = remember { MediaPlayer.create(context, R.raw.yay) }
+
+    DisposableEffect(Unit) {
+        mediaPlayer.start()
+        onDispose {
+            mediaPlayer.stop()
+            mediaPlayer.release()
+        }
+    }
+
     val party = remember {
         Party(
             speed = 0f,
@@ -154,7 +165,13 @@ private fun SharedBirthdayContent(isLandscape: Boolean) {
 /**
  * Previews for visualizing the BirthdayScreen in both portrait and landscape.
  */
-@Preview(name = "Portrait Preview", showBackground = true, widthDp = 360, heightDp = 720, showSystemUi = true)
+@Preview(
+    name = "Portrait Preview",
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 720,
+    showSystemUi = true
+)
 @Composable
 fun BirthdayScreenPortraitPreview() {
     AmazingBirthdayIdentifierReloadedTheme {
