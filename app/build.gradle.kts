@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
@@ -20,12 +22,21 @@ android {
         versionName = GitInfo.getVersionName()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            debugSymbolLevel = "FULL"
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -78,5 +89,11 @@ dependencies {
 
     // coroutine test
     testImplementation(libs.kotlinx.coroutines.test)
+
+    implementation(platform(libs.firebase.bom))
+
+    // Add Crashlytics and Analytics (Analytics is recommended for better Crashlytics reporting)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 
 }
