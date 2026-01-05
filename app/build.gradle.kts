@@ -22,10 +22,6 @@ android {
         versionName = GitInfo.getVersionName()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        ndk {
-            debugSymbolLevel = "FULL"
-        }
     }
 
     buildTypes {
