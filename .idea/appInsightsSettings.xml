@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.lazyjuan.amazingbirthdayidentifierreloaded" />
+                  <option name="mobileSdkAppId" value="1:1025076611620:android:b079d25c2329c1d54726b1" />
+                  <option name="projectId" value="amazing-birthday-identifyer" />
+                  <option name="projectNumber" value="1025076611620" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

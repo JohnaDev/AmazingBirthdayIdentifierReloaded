@@ -9,11 +9,11 @@ espressoCore = "3.7.0"
 kotlinxCoroutinesTest = "1.10.2"
 lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.12.2"
-composeBom = "2025.12.01"
+composeBom = "2026.01.00"
 materialIconsExtendedAndroid = "1.7.8"
 googleGmsGoogleServices = "4.4.4"
 firebaseCrashlyticsPlugin = "3.0.6"
-firebaseBom = "34.7.0"
+firebaseBom = "34.8.0"
 
 [libraries]
 androidx-compose-material-icons-extended-android = { module = "androidx.compose.material:material-icons-extended-android", version.ref = "materialIconsExtendedAndroid" }
