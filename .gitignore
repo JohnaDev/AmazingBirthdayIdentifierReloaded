@@ -16,3 +16,4 @@ local.properties
 /buildSrc/build/
 /buildSrc/.gradle/
 /buildSrc/.kotlin/
+/app/google-services.json
