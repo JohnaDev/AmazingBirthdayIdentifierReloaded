@@ -1,0 +1,87 @@
+name: Android Production Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch: # Allow manual triggers
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to create releases and push tags
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Unit Tests
+        run: ./gradlew testDebugUnitTest
+
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+
+      - name: Sign Release APK
+        id: sign_app
+        run: |
+          KEYSTORE_PATH="${RUNNER_TEMP}/release.keystore"
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > "$KEYSTORE_PATH"
+          UNSIGNED_APK=$(find app/build/outputs/apk/release -name "*.apk" ! -name "*-signed.apk" | head -n 1)
+          SIGNED_APK="${UNSIGNED_APK%.apk}-signed.apk"
+          APKSIGNER=$(find $ANDROID_HOME/build-tools -name apksigner | sort -V | tail -n 1)
+          "$APKSIGNER" sign \
+            --ks "$KEYSTORE_PATH" \
+            --ks-key-alias "${{ secrets.KEY_ALIAS }}" \
+            --ks-pass pass:"${{ secrets.KEYSTORE_PASSWORD }}" \
+            --key-pass pass:"${{ secrets.KEY_PASSWORD }}" \
+            --out "$SIGNED_APK" \
+            "$UNSIGNED_APK"
+          rm -f "$KEYSTORE_PATH"
+          echo "signedReleaseFile=$SIGNED_APK" >> $GITHUB_OUTPUT
+
+      - name: Upload Signed Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: porfolio-production-apk
+          path: ${{ steps.sign_app.outputs.signedReleaseFile }}
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: porfolio-debug-apk
+          path: app/build/outputs/apk/debug/porfolio_*.apk
+
+      - name: Get Version Name
+        id: get_version
+        run: |
+          VERSION_NAME=$(./gradlew :app:properties -q | grep "^versionName:" | awk '{print $2}')
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        with:
+          tag_name: v${{ steps.get_version.outputs.VERSION_NAME }}
+          name: Release v${{ steps.get_version.outputs.VERSION_NAME }}
+          draft: false
+          prerelease: false
+          files: |
+            ${{ steps.sign_app.outputs.signedReleaseFile }}
+            app/build/outputs/apk/debug/porfolio_*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
